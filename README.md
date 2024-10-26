@@ -7,28 +7,38 @@ A Python simulator for building energy systems with solar panels and battery sto
 ## Installation
 
 
+## Checks
+- [x] Check that im using api within terms of service
+- [x] Look at weather data, check that all calculations are correct
+- [ ] Check that CREST model is correct, wrt markov probabilities
+
+
+- simplify occupancy profiles, into one value per hour, but night, day, evening, morning
+- occupancy profiles should be specific to building type
+- input to simulate_consumption should be a building object, a time range, and weather data for that time range. is_weekend should be calculated from the timestamps within the simulation.
+
+
 ## TODOs
-
-
-- [ ] Verify that the weather data is correct
-- [ ] Add more weather data that impacts solar generation and consumption in CREST model
-    - [ ] Temperature
-    - [ ] Irradiance
-    - [ ] Cloud coverage
-    - [ ] Wind speed
-    - [ ] Humidity
-    - [ ] Precipitation
-- [ ] Add more complex CREST model
-- [ ] Add chosen crest model as input to the simulation
-- [ ] Add actual prediction algorithms for solar generation and spot prices
-- [ ] Add more buidning parameters
-    - [ ] Coordinates
-    - [ ] Different tariffs for grid power
-    - [ ] Solar panel direction
-    - [ ] Type of building (fabrikk/næringsbygg/bolig)
-
-
-
+- make the whole thing run
+- fix flat battery soc
+- fix json export error
+- improve solar simulation accuracy
+- Calcuation of saved costs with battery optimization vs not
+    - add to export
+- Ingegrate with martins code
+- UI
+    - Cration of a building
+    - Selection of user scenario
+    - Selection of simulation parameters 
+    - Running the simulation
+    - Visualizing with graphs
+        - Simulated data
+        - Optimization results
+        - Spot prices
+        - Consumption
+        - Solar generation
+        - Battery state of charge
+- Improved battery optimization algorithm
 
 ### Core Functionality & Correctness
 - [ ] Implement proper solar angle calculations based on latitude/longitude
