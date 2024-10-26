@@ -1,5 +1,5 @@
 import pytest
-from appliance_usage_profiles.appliance import ApplianceStatistics
+from appliance_load_profiles.appliance import ApplianceStatistics
 import numpy as np
 
 mean_cycle_length = 10
