@@ -4,13 +4,14 @@ from weather import WeatherData
 from consumption import simulate_consumption
 from solar import simulate_solar
 from battery import optimize_battery
-from spot_prices import get_spot_prices
+from spot_prices import get_spot_prices, get_price_area_from_location
 from visualization import plot_energy_flow
 from utils import get_coordinates_from_adress
 from utils import export_simulation_results
+import pandas as pd
+
 
 def main():
-    adress = "Sunnlandsskrenten 35b, 7032, Trondheim"
     # Initialize building
     building = Building(
         battery_capacity_kwh=10.0,
@@ -53,8 +54,14 @@ def main():
         building.location
     )
     
-    # Get spot prices for tomorrow
-    spot_prices_tomorrow = get_spot_prices()
+    try:
+        price_area = get_price_area_from_location(*building.location)
+        spot_prices_tomorrow = get_spot_prices(price_area)
+    except ValueError as e:
+        print(f"Error: {e}")
+        return  # Or handle the error appropriately
+    
+    print("Spot price area:", price_area)    
     
     # Optimize battery operation for tomorrow
     soc, grid = optimize_battery(
@@ -65,10 +72,9 @@ def main():
         solar_generation_tomorrow
     )
     
-    # Create results directory if it doesn't exist
-    import os
-    os.makedirs("results", exist_ok=True)
+    print(pd.DataFrame(spot_prices_tomorrow).describe())
     
+
     # Export results
     export_simulation_results(
         weather_forecast_tomorrow['timestamp'],  # Pass just the timestamps list
